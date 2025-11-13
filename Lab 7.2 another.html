@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML Form Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .form-container {
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 6px;
+      width: 650px;
+      padding: 35px 45px;
+    }
+    h1 {
+      text-align: center;
+      color: #000;
+      border-bottom: 2px solid #000;
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+    .line-box {
+      border: 1px solid #000;
+      border-radius: 5px;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+    }
+    .line-title {
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 95%;
+      padding: 6px;
+      border: 1px solid #000;
+      border-radius: 4px;
+      background: #fff;
+      color: #000;
+      outline: none;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus {
+      background-color: #f0f0f0;
+      border-color: #333;
+      box-shadow: 0 0 3px #999;
+    }
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 6px;
+      accent-color: black;
+    }
+    .dob-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .file-input {
+      border: 1px solid #000;
+      padding: 6px;
+      border-radius: 4px;
+      width: 95%;
+    }
+    input[type="submit"] {
+      background-color: #000;
+      color: white;
+      padding: 8px 25px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+    input[type="submit"]:hover {
+      background-color: #333;
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .center {
+      text-align: center;
+    }
+    label {
+      margin-right: 12px;
+    }
+    #preview {
+      display: none;
+      margin-top: 10px;
+      max-width: 150px;
+      border-radius: 6px;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>HTML Form Page</h1>
+
+    <form id="mainForm">
+
+      <!-- Name -->
+      <div class="line-box">
+        <div class="line-title">1. Name</div>
+        <input type="text" name="name" required>
+      </div>
+
+      <!-- Email -->
+      <div class="line-box">
+        <div class="line-title">2. Email</div>
+        <input type="email" name="email" required>
+      </div>
+
+      <!-- Gender -->
+      <div class="line-box">
+        <div class="line-title">3. Gender</div>
+        <label><input type="radio" name="gender" value="Male"> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+
+      <!-- DOB -->
+      <div class="line-box">
+        <div class="line-title">4. Date of Birth</div>
+        <div class="dob-box">
+          <input type="text" name="day" maxlength="2" placeholder="DD"> /
+          <input type="text" name="month" maxlength="2" placeholder="MM"> /
+          <input type="text" name="year" maxlength="4" placeholder="YYYY">
+        </div>
+      </div>
+
+      <!-- Degree -->
+      <div class="line-box">
+        <div class="line-title">5. Degree</div>
+        <label><input type="checkbox" name="degree" value="SSC"> SSC</label>
+        <label><input type="checkbox" name="degree" value="HSC"> HSC</label>
+        <label><input type="checkbox" name="degree" value="BSc"> BSc</label>
+      </div>
+
+      <!-- Blood Group -->
+      <div class="line-box">
+        <div class="line-title">6. Blood Group</div>
+        <select name="blood" required>
+          <option value="">Select</option>
+          <option value="A+">A+</option>
+          <option value="B+">B+</option>
+          <option value="AB+">AB+</option>
+          <option value="O+">O+</option>
+        </select>
+      </div>
+
+      <!-- Profile Picture -->
+      <div class="line-box">
+        <div class="line-title">7. Profile Picture</div>
+        <input type="file" name="photo" class="file-input" accept="image/*" id="photoInput">
+        <img id="preview" alt="Preview">
+      </div>
+
+      <!-- User ID -->
+      <div class="line-box">
+        <div class="line-title">8. User ID</div>
+        <input type="text" name="userid">
+      </div>
+
+      <div class="center">
+        <input type="submit" value="Submit All">
+      </div>
+
+    </form>
+
+    <div class="success-message" id="successMessage">
+      ✅ Form submitted successfully!
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("mainForm");
+    const successMsg = document.getElementById("successMessage");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      successMsg.style.display = "block";
+      setTimeout(() => {
+        successMsg.style.display = "none";
+      }, 2500);
+      form.reset();
+      document.getElementById("preview").style.display = "none";
+    });
+
+    // Image preview
+    document.getElementById("photoInput").addEventListener("change", function() {
+      const file = this.files[0];
+      const preview = document.getElementById("preview");
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
