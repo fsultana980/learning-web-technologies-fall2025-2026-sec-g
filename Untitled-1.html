@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vote Now</title>
+  <style>
+    body { font-family: Arial; background: #eef; text-align: center; margin-top: 40px; }
+    input, button { padding: 10px; margin: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Choose Your Candidate</h2>
+
+  <form id="voteForm">
+    <label><input type="radio" name="candidate" value="Candidate A" required> 🌾 Candidate A</label><br>
+    <label><input type="radio" name="candidate" value="Candidate B"> 🐅 Candidate B</label><br>
+    <label><input type="radio" name="candidate" value="Candidate C"> 🚲 Candidate C</label><br>
+
+    <button type="submit">Submit Vote</button>
+  </form>
+
+  <script>
+    document.getElementById("voteForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const selected = document.querySelector('input[name="candidate"]:checked');
+      if (selected) {
+        alert("✅ Your vote for " + selected.value + " has been submitted successfully!");
+        window.location.href = "index.html"; // Redirect to home/login page
+      } else {
+        alert("Please select a candidate.");
+      }
+    });
+  </script>
+
+</body>
+</html>

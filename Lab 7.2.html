@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Person Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 6px;
+      width: 700px;
+      padding: 35px 45px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #000;
+      border-bottom: 2px solid #000;
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 8px;
+      vertical-align: top;
+    }
+
+    .label {
+      width: 150px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    select {
+      width: 95%;
+      padding: 6px;
+      border: 1px solid #000;
+      border-radius: 4px;
+      background: #fff;
+      color: #000;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus {
+      background-color: #f0f0f0;
+      border-color: #333;
+      box-shadow: 0 0 3px #999;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 6px;
+      accent-color: black;
+    }
+
+    .dob-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dob {
+      width: 60px;
+      text-align: center;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .file-input {
+      border: 1px solid #000;
+      padding: 6px;
+      border-radius: 4px;
+      width: 95%;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #000;
+      color: white;
+      padding: 8px 25px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    .field-error {
+      color: red;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="personForm" onsubmit="return validateForm()" enctype="multipart/form-data" novalidate>
+      <h2>PERSON PROFILE</h2>
+
+      <table>
+        <tr>
+          <td class="label">Name</td>
+          <td>
+            <input type="text" id="name" name="name" />
+            <div id="nameErr" class="field-error" aria-live="polite"></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label">Email</td>
+          <td>
+            <input type="text" id="email" name="email" />
+            <div id="emailErr" class="field-error" aria-live="polite"></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label">Gender</td>
+          <td>
+            <label><input type="radio" name="gender" value="Male"> Male</label>
+            <label><input type="radio" name="gender" value="Female"> Female</label>
+            <label><input type="radio" name="gender" value="Other"> Other</label>
+            <div id="genderErr" class="field-error" aria-live="polite"></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label">Date of Birth</td>
+          <td>
+            <div class="dob-row">
+              <input type="number" id="day" class="dob" placeholder="dd" min="1" max="31" />
+              <span>/</span>
+              <input type="number" id="month" class="dob" placeholder="mm" min="1" max="12" />
+              <span>/</span>
+              <input type="number" id="year" class="dob" placeholder="yyyy" min="1900" max="2016" />
+            </div>
+            <div class="hint">(dd/mm/yyyy)</div>
+            <div id="dobErr" class="field-error" aria-live="polite"></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label">Blood Group</td>
+          <td>
+            <select id="blood">
+              <option value="">Select</option>
+              <option>A+</option>
+              <option>A-</option>
+              <option>B+</option>
+              <option>B-</option>
+              <option>O+</option>
+              <option>O-</option>
+              <option>AB+</option>
+              <option>AB-</option>
+            </select>
+            <div id="bloodErr" class="field-error" aria-live="polite"></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label">Degree</td>
+          <td>
+            <label><input type="checkbox" name="degree" value="SSC"> SSC</label>
+            <label><input type="checkbox" name="degree" value="HSC"> HSC</label>
+            <label><input type="checkbox" name="degree" value="BSc"> BSc</label>
+            <label><input type="checkbox" name="degree" value="MSc"> MSc</label>
+            <div id="degreeErr" class="field-error" aria-live="polite"></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label">Photo</td>
+          <td>
+            <input type="file" id="photo" class="file-input" accept="image/*" />
+            <div id="photoErr" class="field-error" aria-live="polite"></div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="buttons">
+        <button type="submit">Submit</button>
+        <button type="reset" onclick="clearErrors()">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function showError(id, msg) {
+      document.getElementById(id).textContent = msg || '';
+    }
+
+    function clearErrors() {
+      ['nameErr','emailErr','genderErr','dobErr','bloodErr','degreeErr','photoErr']
+        .forEach(id => showError(id, ''));
+    }
+
+    function validateForm() {
+      clearErrors();
+      let ok = true;
+
+      const name = document.getElementById('name').value.trim();
+      if (!name) {
+        showError('nameErr', 'Name cannot be empty.');
+        ok = false;
+      } else {
+        const words = name.split(/\s+/).filter(Boolean);
+        if (words.length < 2) {
+          showError('nameErr', 'Name must contain at least two words.');
+          ok = false;
+        } else if (!/^[A-Za-z]/.test(name)) {
+          showError('nameErr', 'Name must start with a letter.');
+          ok = false;
+        } else if (!/^[A-Za-z.\\-\\s]+$/.test(name)) {
+          showError('nameErr', 'Invalid characters in name. (Letters, dot, dash and spaces only.)');
+          ok = false;
+        }
+      }
+
+      const email = document.getElementById('email').value.trim();
+      const emailRe = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      if (!email) {
+        showError('emailErr', 'Email cannot be empty.');
+        ok = false;
+      } else if (!emailRe.test(email)) {
+        showError('emailErr', 'Invalid email format.');
+        ok = false;
+      }
+
+      const genders = document.getElementsByName('gender');
+      if (![...genders].some(r => r.checked)) {
+        showError('genderErr', 'Please select your gender.');
+        ok = false;
+      }
+
+      const dayVal = document.getElementById('day').value;
+      const monthVal = document.getElementById('month').value;
+      const yearVal = document.getElementById('year').value;
+
+      const day = Number(dayVal);
+      const month = Number(monthVal);
+      const year = Number(yearVal);
+
+      if (!dayVal || !monthVal || !yearVal) {
+        showError('dobErr', 'Please enter day, month and year.');
+        ok = false;
+      } else if (!Number.isInteger(day) || !Number.isInteger(month) || !Number.isInteger(year)) {
+        showError('dobErr', 'Day, month and year must be integers.');
+        ok = false;
+      } else if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > 2016) {
+        showError('dobErr', 'Please enter a valid date within allowed ranges.');
+        ok = false;
+      } else {
+        const daysInMonth = [31, ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) ? 29 : 28, 31,30,31,30,31,31,30,31,30,31];
+        if (day > daysInMonth[month - 1]) {
+          showError('dobErr', `Day ${day} is not valid for month ${month} in year ${year}.`);
+          ok = false;
+        }
+      }
+
+      const blood = document.getElementById('blood').value;
+      if (!blood) {
+        showError('bloodErr', 'Please select a blood group.');
+        ok = false;
+      }
+
+      const degrees = document.getElementsByName('degree');
+      if (![...degrees].some(c => c.checked)) {
+        showError('degreeErr', 'Please select at least one degree.');
+        ok = false;
+      }
+
+      const photoInput = document.getElementById('photo');
+      if (!photoInput.files || photoInput.files.length === 0) {
+        showError('photoErr', 'Please upload a photo.');
+        ok = false;
+      } else {
+        const f = photoInput.files[0];
+        const maxSize = 2 * 1024 * 1024;
+        if (f.size > maxSize) {
+          showError('photoErr', 'Photo must be smaller than 2 MB.');
+          ok = false;
+        }
+      }
+
+      if (ok) {
+        alert('All information validated successfully!');
+      }
+      return ok;
+    }
+  </script>
+</body>
+</html>
