@@ -100,7 +100,7 @@
             document.getElementById("display").value = "";
         }
 
-        // Only addition works
+    
         function doEqual(){
             var text = document.getElementById("display").value;
 
@@ -109,6 +109,12 @@
                 var a = Number(parts[0]);
                 var b = Number(parts[1]);
                 document.getElementById("display").value = a + b;
+            }
+            else if(text.indexOf("-") != -1){
+                var parts = text.split("-");
+                var a = Number(parts[0]);
+                var b = Number(parts[1]);
+                document.getElementById("display").value = a - b;
             }
             else{
                 document.getElementById("display").value = "No result";
