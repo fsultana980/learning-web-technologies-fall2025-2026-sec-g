@@ -1,0 +1,36 @@
+<h2>Promo Code Validation</h2>
+
+<label>Enter Promo Code:</label><br>
+<input type="text" id="promoInput" placeholder="Enter code"><br><br>
+
+<button onclick="checkPromo()">Apply Code</button>
+
+<p id="promoMsg"></p>
+<script>
+    function checkPromo() {
+    let code = document.getElementById("promoInput").value.trim();
+    let msg = document.getElementById("promoMsg");
+
+    // Set valid promo code
+    let validCode = "SALE20";
+
+    // Empty input validation
+    if (code === "") {
+        msg.innerText = "Please enter a promo code.";
+        msg.style.color = "red";
+        return;
+    }
+
+    // Check if correct
+    if (code.toUpperCase() === validCode) {
+        msg.innerText = "Promo applied! You get 20% discount!";
+        msg.style.color = "green";
+    } else {
+        msg.innerText = "Invalid promo code. Try again.";
+        msg.style.color = "red";
+    }
+
+    // Clear input
+    document.getElementById("promoInput").value = "";
+}
+</script>

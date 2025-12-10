@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Featured Products</title>
+</head>
+<body>
+
+<h2>Featured Products</h2>
+
+<div id="productBox">
+
+    <div>
+        <img src="wireless-headphone.jpg" width="200">
+        <p>Wireless Headphone - 1199 BDT</p>
+    </div>
+
+    <div>
+        <img src="Smart watch.jpg" width="200">
+        <p>Smart Watch - 4199 BDT</p>
+    </div>
+
+    <div>
+        <img src="sports-shoes.png" width="200">
+        <p>Sports Shoes - 3199 BDT</p>
+    </div>
+
+    <!-- Hidden products -->
+    <div class="extra" style="display:none;">
+        <img src="bluetooth-speaker.png" width="200">
+        <p>Bluetooth Speaker - 2399 BDT</p>
+    </div>
+
+    <div class="extra" style="display:none;">
+        <img src="images (6).jpg" width="200">
+        <p>Backpack - 1999 BDT</p>
+    </div>
+
+</div>
+
+<br>
+
+<button id="showBtn">Show More</button>
+<p id="msg" style="color:red;"></p>
+
+
+<!-- JS MUST be after HTML -->
+<script>
+    let open = false;
+
+    document.getElementById("showBtn").addEventListener("click", function() {
+
+        let extraItems = document.querySelectorAll(".extra");
+
+        if (open === false) {
+            // Show hidden products
+            extraItems.forEach(product => {
+                product.style.display = "block";
+            });
+            this.innerText = "Show Less";
+        } 
+        else {
+            // Hide extra products
+            extraItems.forEach(product => {
+                product.style.display = "none";
+            });
+            this.innerText = "Show More";
+        }
+
+        open = !open; // Toggle open value
+    });
+</script>
+
+</body>
+</html>

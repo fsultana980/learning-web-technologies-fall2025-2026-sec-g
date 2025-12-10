@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Homepage Promotional Slider</title>
+
+<style>
+    *{margin:0; padding:0; box-sizing:border-box;}
+    body{
+        font-family: Arial, sans-serif;
+    }
+
+    .slider-container{
+        width: 100%;
+        max-width: 900px;
+        height: 350px;
+        margin: 40px auto;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .slides{
+        display: flex;
+        width: 50%;
+        height: 150%;
+        transition: 0.6s;
+    }
+
+    .slide{
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    .slide img{
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+    }
+
+    /* Arrows */
+    .prev, .next{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 50%;
+        font-size: 18px;
+    }
+    .prev{left: 10px;}
+    .next{right: 10px;}
+
+    /* Dots */
+    .dots{
+        text-align: center;
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+    }
+
+    .dots span{
+        height: 12px;
+        width: 12px;
+        background: #bbb;
+        display: inline-block;
+        border-radius: 50%;
+        margin: 0 4px;
+        cursor: pointer;
+    }
+
+    .active-dot{
+        background: #555;
+    }
+</style>
+
+</head>
+<body>
+
+<!-- Slider Section -->
+<div class="slider-container">
+    
+    <div class="slides" id="slideBox">
+        <div class="slide"><img src="Begie Modern New Collection Instagram Post.png"></div>
+        <div class="slide"><img src="1600w-_gIFXUJM76g.webp"></div>
+        <div class="slide"><img src="1600w-WaLf4Ccx5Ns.webp"></div>
+    </div>
+
+    <div class="prev" onclick="moveSlide(-1)">&#10094;</div>
+    <div class="next" onclick="moveSlide(1)">&#10095;</div>
+
+    <div class="dots">
+        <span class="dot active-dot" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+    </div>
+</div>
+
+
+<script>
+    let index = 0;
+    const slides = document.getElementById("slideBox");
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlide(i){
+        index = (i + 3) % 3;  // total slides = 3
+        slides.style.transform = "translateX(" + (-index * 100) + "%)";
+        
+        dots.forEach(dot => dot.classList.remove("active-dot"));
+        dots[index].classList.add("active-dot");
+    }
+
+    function moveSlide(step){
+        showSlide(index + step);
+    }
+
+    function currentSlide(i){
+        showSlide(i);
+    }
+
+    // Auto-slide every 4 seconds
+    setInterval(() => {
+        moveSlide(1);
+    }, 4000);
+</script>
+
+</body>
+</html>

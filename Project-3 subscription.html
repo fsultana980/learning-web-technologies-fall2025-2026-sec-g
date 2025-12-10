@@ -1,0 +1,45 @@
+<h2> NexCart Subscription</h2>
+
+<form id="subscribeForm">
+
+    <label>Enter your Email:</label><br>
+    <input type="text" id="emailInput">
+
+    <br><br>
+
+    <button type="button" id="subscribeBtn">Subscribe</button>
+
+    <p id="message"></p>
+
+</form>
+<script>
+
+document.getElementById("subscribeBtn").addEventListener("click", function () {
+
+    let email = document.getElementById("emailInput").value;
+    let message = document.getElementById("message");
+
+    // simple email validation rule
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if (email === "") {
+        message.style.color = "red";
+        message.innerText = "Email field cannot be empty!";
+        return;
+    }
+
+    if (!email.match(pattern)) {
+        message.style.color = "red";
+        message.innerText = "Please enter a valid email address.";
+        return;
+    }
+
+    // success message
+    message.style.color = "green";
+    message.innerText = "Subscribed successfully!";
+
+    // clear input
+    document.getElementById("emailInput").value = "";
+});
+
+</script>

@@ -1,0 +1,51 @@
+<h2>DROP YOUR PROBLEM</h2>
+
+<form id="contactForm">
+    <label>Name:</label><br>
+    <input type="text" id="name" placeholder="Enter your name"><br><br>
+
+    <label>Email:</label><br>
+    <input type="text" id="email" placeholder="Enter your email"><br><br>
+
+    <label>Message:</label><br>
+    <textarea id="message" placeholder="Write your message"></textarea><br><br>
+
+    <button type="button" onclick="validateContactForm()">Submit</button>
+</form>
+<script>
+<p id="contactMessage"></p>
+function validateContactForm() {
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let message = document.getElementById("message").value.trim();
+    let msg = document.getElementById("contactMessage");
+
+    // Name validation
+    if (name === "") {
+        msg.innerText = "Please enter your name.";
+        msg.style.color = "red";
+        return;
+    }
+
+    // Email validation
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        msg.innerText = "Please enter a valid email address.";
+        msg.style.color = "red";
+        return;
+    }
+
+    // Message validation
+    if (message.length < 10) {
+        msg.innerText = "Message must be at least 10 characters.";
+        msg.style.color = "red";
+        return;
+    }
+
+    // Success
+    msg.innerText = "Message sent successfully!";
+    msg.style.color = "green";
+
+    document.getElementById("contactForm").reset();
+}
+</script>
